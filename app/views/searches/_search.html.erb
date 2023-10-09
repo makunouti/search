@@ -1,0 +1,18 @@
+<% if user_signed_in? %>
+  <%= form_with(url: search_path, method: "get") do %>
+    <%= select_tag :search_target, options_for_select(["User", "Post"], "User"), prompt: "Search Target" %>
+    <%= select_tag :search_method, options_for_select(["Exact Match", "Starts With", "Ends With", "Contains"], "Exact Match"), prompt: "Search Method" %>
+    <%= text_field_tag :query, params[:query], placeholder: "Search..." %>
+    <%= submit_tag "Search" %>
+  <% end %>
+<% end %>
+<% if @results.any? %>
+  <h2>Search Results</h2>
+  <ul>
+    <% @results.each do |result| %>
+      <li><%= result.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No results found.</p>
+<% end %>
